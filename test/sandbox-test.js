@@ -1485,4 +1485,17 @@ describe("Sandbox", function () {
             assert.equals(object.prop, "bla");
         });
     });
+    describe("Sandbox without extensions", function () {
+        it("should not crash while setting up fake timers", function () {
+            var noExtensionInstance = Object.preventExtensions(new Sandbox());
+
+            var clock;
+
+            refute.exception(function () {
+                clock = noExtensionInstance.useFakeTimers();
+            });
+
+            clock.restore();
+        });
+    });
 });
